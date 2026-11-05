@@ -48,6 +48,31 @@ npm run dev
 
 Vite sirve la interfaz en [http://127.0.0.1:1420](http://127.0.0.1:1420).
 
+## Descargar versiones para Windows y Linux
+
+Descarga la versión más reciente desde [GitHub Releases](https://github.com/RekiCv/AuraEQ/releases). Windows ofrece instaladores `.msi` y `.exe`; Linux ofrece paquetes `.deb` y `.AppImage`.
+
+El workflow de GitHub Actions compila ambos sistemas cuando se publica una etiqueta `v*`. Para crear una nueva versión:
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+## Apoya AuraEQ
+
+Si disfrutas de AuraEQ y quieres apoyar su desarrollo, puedes invitarme a un café. ¡Cada aporte ayuda a que el proyecto siga creciendo!
+
+<p align="center">
+  <a href="https://donatr.ee/senkiu?utm_source=copy&amp;utm_medium=share">
+    <img src="https://img.shields.io/badge/%E2%98%95_Apoya_AuraEQ-Donar-purple?style=for-the-badge" alt="Apoya AuraEQ con una donación"/>
+  </a>
+</p>
+
+<p align="center">
+  <sub>Hecho con curiosidad, código y un poco de vibecoding.</sub>
+</p>
+
 ## Compilar
 
 ```bash

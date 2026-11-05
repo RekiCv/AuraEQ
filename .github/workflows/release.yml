@@ -1,0 +1,66 @@
+name: Build desktop releases
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    name: Build on ${{ matrix.platform }}
+    runs-on: ${{ matrix.platform }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: ubuntu-22.04
+            bundles: deb,appimage
+          - platform: windows-latest
+            bundles: msi,nsis
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Install Linux dependencies
+        if: matrix.platform == 'ubuntu-22.04'
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes \
+            build-essential \
+            file \
+            libayatana-appindicator3-dev \
+            libssl-dev \
+            libwebkit2gtk-4.1-dev \
+            librsvg2-dev \
+            patchelf
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install JavaScript dependencies
+        run: npm ci
+
+      - name: Build and publish release assets
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: AuraEQ ${{ github.ref_name }}
+          releaseBody: |
+            AuraEQ desktop release for Windows and Linux.
+
+            Consulta el [README](https://github.com/${{ github.repository }}/blob/main/README.md) para ver las instrucciones de instalación y las limitaciones conocidas.
+          releaseDraft: false
+          prerelease: false
+          args: --bundles ${{ matrix.bundles }}

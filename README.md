@@ -55,8 +55,8 @@ Descarga la versión más reciente desde [GitHub Releases](https://github.com/Re
 El workflow de GitHub Actions compila ambos sistemas cuando se publica una etiqueta `v*`. Para crear una nueva versión:
 
 ```bash
-git tag v0.1.0
-git push origin v0.1.0
+git tag v0.1.1
+git push origin v0.1.1
 ```
 
 ## Apoya AuraEQ
